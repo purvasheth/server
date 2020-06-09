@@ -2,19 +2,14 @@ const app = require('express')();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 server.listen(PORT);
 // WARNING: app.listen(80) will NOT work here!
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
-io.origins((origin, callback) => {
-    if (origin !== 'http://localhost/') {
-        return callback('origin not allowed', false);
-    }
-    callback(null, true);
-});
+io.origins('*:*')
 
 
 
