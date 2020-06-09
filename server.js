@@ -9,6 +9,12 @@ server.listen(PORT);
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
+io.origins((origin, callback) => {
+    if (origin !== 'http://localhost/') {
+        return callback('origin not allowed', false);
+    }
+    callback(null, true);
+});
 
 
 
